@@ -1,0 +1,98 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="description" content="GST invoices with five formats and print-ready PDF output."><meta name="generator" content="Astro v5.18.2"><meta name="theme-color" content="#f8f3ec" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#1e1e2e" media="(prefers-color-scheme: dark)"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><title>Invoice Generator — Shubham Chandok</title><script>
+      (function () {
+        var stored;
+        try {
+          stored = localStorage.getItem('theme');
+        } catch (e) {}
+        var theme =
+          stored === 'light' || stored === 'dark'
+            ? stored
+            : window.matchMedia('(prefers-color-scheme: dark)').matches
+              ? 'dark'
+              : 'light';
+        document.documentElement.setAttribute('data-theme', theme);
+        document.documentElement.style.colorScheme = theme;
+
+        // Client-side navigation replaces <html> attributes; carry the theme over.
+        if (!window.__themeSwapBound) {
+          window.__themeSwapBound = true;
+          document.addEventListener('astro:before-swap', function (e) {
+            var current = document.documentElement.getAttribute('data-theme') || theme;
+            e.newDocument.documentElement.setAttribute('data-theme', current);
+            e.newDocument.documentElement.style.colorScheme = current;
+          });
+        }
+      })();
+    </script><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/_astro/ClientRouter.astro_astro_type_script_index_0_lang.B1s6EZz0.js"></script><link rel="stylesheet" href="/_astro/about.BBo5eeRj.css"><style>[data-astro-transition-scope="astro-sfrctyj4-1"] { view-transition-name: project-title-invoice-generator; }@layer astro { ::view-transition-old(project-title-invoice-generator) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(project-title-invoice-generator) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(project-title-invoice-generator) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(project-title-invoice-generator) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-sfrctyj4-1"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-sfrctyj4-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-sfrctyj4-1"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-sfrctyj4-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-sfrctyj4-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-sfrctyj4-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-sfrctyj4-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-sfrctyj4-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-2hetddyg-2"] { view-transition-name: project-visual-invoice-generator; }@layer astro { ::view-transition-old(project-visual-invoice-generator) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(project-visual-invoice-generator) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(project-visual-invoice-generator) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(project-visual-invoice-generator) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-2hetddyg-2"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-2hetddyg-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-2hetddyg-2"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-2hetddyg-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-2hetddyg-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-2hetddyg-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-2hetddyg-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-2hetddyg-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style></head> <body> <a class="skip" href="#main">Skip to content</a> <div class="wrap"> <nav class="nav" data-astro-transition-persist="site-nav" aria-label="Primary"> <a class="brand" href="/"><span class="g tilde">~/</span>shubham<span class="m">@</span>chandok</a> <div class="navlinks"> <a href="/#work" aria-current="page"> work </a> <span class="sep" aria-hidden="true">·</span><a href="/about"> about </a> <span class="sep" aria-hidden="true">·</span><a href="/contact"> contact </a>  <button class="theme-toggle" data-theme-toggle type="button" aria-label="Toggle color theme"> <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path> </svg> <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"> <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"></path> </svg> </button> <script type="module">function r(e){const t=document.documentElement;t.setAttribute("data-theme",e),t.style.colorScheme=e;try{localStorage.setItem("theme",e)}catch{}}function d(e){const t=document.documentElement,n=t.getAttribute("data-theme")==="dark"?"light":"dark";if(window.matchMedia("(prefers-reduced-motion: reduce)").matches||!("startViewTransition"in document)){r(n);return}const o=e.getBoundingClientRect(),i=o.left+o.width/2,c=o.top+o.height/2,s=Math.hypot(Math.max(i,innerWidth-i),Math.max(c,innerHeight-c));t.classList.add("theme-vt");const a=document.startViewTransition(()=>r(n));a.ready.then(()=>{t.animate({clipPath:[`circle(0px at ${i}px ${c}px)`,`circle(${s}px at ${i}px ${c}px)`]},{duration:600,easing:"cubic-bezier(0.4, 0, 0.2, 1)",pseudoElement:"::view-transition-new(root)"})}).catch(()=>{}),a.finished.finally(()=>t.classList.remove("theme-vt"))}window.__themeToggleBound||(window.__themeToggleBound=!0,document.addEventListener("click",e=>{const t=e.target;if(!(t instanceof Element))return;const n=t.closest("[data-theme-toggle]");n&&d(n)}));</script> </div> </nav> <script type="module">window.__navBound||(window.__navBound=!0,document.addEventListener("astro:page-load",()=>{const t=window.location.pathname.replace(/\/+$/,"")||"/";document.querySelectorAll(".navlinks a").forEach(e=>{const r=e.getAttribute("href")||"";(r==="/#work"?t==="/"||t.startsWith("/work"):t===r)?e.setAttribute("aria-current","page"):e.removeAttribute("aria-current")})}));</script> </div> <main id="main">  <div class="wrap"> <div class="back"> <a href="/#work"><span class="g">$</span> cd ..</a> </div> <header class="phead"> <div class="meta"> <span class="a">// personal project</span> <span>Mobile</span> </div> <h1 data-astro-transition-scope="astro-sfrctyj4-1">Invoice Generator</h1> <p class="sub">GST invoices with five formats and print-ready PDF output.</p> <ul class="chips" aria-label="Tech stack"> <li class="chip">Flutter</li> </ul> </header> <div class="shot" data-astro-transition-scope="astro-2hetddyg-2"> <span class="placeholder" aria-hidden="true">Invoice Generator</span> </div>  <section> <div class="sec-head"><span class="a">//</span> overview</div> <div class="body"> <p>An invoice app for small businesses with GST support.</p> </div> </section> <section> <div class="sec-head"><span class="a">//</span> what i built</div> <ul class="bullets"> <li>Edit GST using predefined slabs from a master list</li><li>Five invoice formats</li><li>Company watermarks</li><li>Print-ready PDFs for portable printers and PDF viewers</li> </ul> </section> <a class="next" href="/work/widget-app"> <div> <div class="label">next project</div> <div class="ttl">Widget App</div> </div> <span class="arrow" aria-hidden="true">→</span> </a> </div>  </main> <div class="wrap"> <footer class="footer"> <div class="footline"> <span>© 2026 shubham chandok</span> <span>exit 0</span> </div> </footer> </div> <div class="cat" data-cat aria-hidden="true"></div> <script type="module" src="/_astro/Cat.astro_astro_type_script_index_0_lang.CDRfUKwV.js"></script> </body></html>
