@@ -1,0 +1,65 @@
+---
+---
+<button class="theme-toggle" data-theme-toggle type="button" aria-label="Toggle color theme">
+  <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <circle cx="12" cy="12" r="4"></circle>
+    <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path>
+  </svg>
+  <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"></path>
+  </svg>
+</button>
+
+<script>
+  type Theme = 'light' | 'dark';
+
+  function applyTheme(next: Theme) {
+    const root = document.documentElement;
+    root.setAttribute('data-theme', next);
+    root.style.colorScheme = next;
+    try {
+      localStorage.setItem('theme', next);
+    } catch {
+      /* storage unavailable */
+    }
+  }
+
+  function toggleTheme(btn: Element) {
+    const root = document.documentElement;
+    const next: Theme = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (reduce || !('startViewTransition' in document)) {
+      applyTheme(next);
+      return;
+    }
+
+    // Circular reveal from the button: the new theme (with content) grows over the old one.
+    const rect = btn.getBoundingClientRect();
+    const x = rect.left + rect.width / 2;
+    const y = rect.top + rect.height / 2;
+    const radius = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+
+    root.classList.add('theme-vt');
+    const transition = document.startViewTransition(() => applyTheme(next));
+    transition.ready
+      .then(() => {
+        root.animate(
+          { clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${radius}px at ${x}px ${y}px)`] },
+          { duration: 600, easing: 'cubic-bezier(0.4, 0, 0.2, 1)', pseudoElement: '::view-transition-new(root)' }
+        );
+      })
+      .catch(() => {});
+    transition.finished.finally(() => root.classList.remove('theme-vt'));
+  }
+
+  if (!window.__themeToggleBound) {
+    window.__themeToggleBound = true;
+    document.addEventListener('click', (event) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+      const btn = target.closest('[data-theme-toggle]');
+      if (btn) toggleTheme(btn);
+    });
+  }
+</script>

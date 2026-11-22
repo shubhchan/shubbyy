@@ -1,0 +1,31 @@
+---
+import type { Project } from '../data/projects';
+
+interface Props {
+  project: Project;
+  index: number;
+}
+
+const { project, index } = Astro.props;
+const num = String(index + 1).padStart(2, '0');
+---
+
+<a class="row" href={`/work/${project.slug}`}>
+  <span class="idx">{num}</span>
+  <div>
+    <h3 transition:name={`project-title-${project.slug}`}>{project.title}</h3>
+    <p class="tagline">{project.tagline}</p>
+  </div>
+  <div class="meta">
+    <span class="kind">{project.kind}</span>
+    <div class="thumb" transition:name={`project-visual-${project.slug}`}>
+      {
+        project.image ? (
+          <img src={project.image} alt="" loading="lazy" decoding="async" />
+        ) : (
+          <span aria-hidden="true">{num}</span>
+        )
+      }
+    </div>
+  </div>
+</a>

@@ -1,0 +1,22 @@
+---
+import { site } from '../data/site';
+---
+
+<div class="contact-list">
+  <div class="row">
+    <span class="cmd">$ mail</span>
+    <a class="val" href={`mailto:${site.email}`}>{site.email}</a>
+  </div>
+  <div class="row">
+    <span class="cmd">$ open</span>
+    <a class="val" href={site.github} target="_blank" rel="noopener noreferrer">
+      {site.github.replace(/^https?:\/\//, '').replace(/\/$/, '')}
+    </a>
+  </div>
+  <div class="row">
+    <span class="cmd">$ open</span>
+    <a class="val" href={site.linkedin} target="_blank" rel="noopener noreferrer">
+      {site.linkedin.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')}
+    </a>
+  </div>
+</div>

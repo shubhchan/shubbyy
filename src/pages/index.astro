@@ -1,0 +1,72 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import ContactList from '../components/ContactList.astro';
+import { featured, more } from '../data/projects';
+import { skills } from '../data/about';
+import { site } from '../data/site';
+---
+
+<Layout>
+  <div class="wrap">
+    <header class="hero">
+      <div class="prompt"><span class="g">$</span> whoami<span class="cursor" aria-hidden="true"></span></div>
+      <h1>
+        {site.name}.
+        <span class="sub">I build web platforms and mobile apps that run real businesses.</span>
+      </h1>
+      <div class="lead">
+        <p>
+          <b>Full stack developer.</b> I work across PHP, React, and Flutter — from
+          HR and billing systems to content platforms and offline-first apps.
+        </p>
+      </div>
+      <div class="stats">
+        <div class="stat"><b>5L+</b><span>customers billed</span></div>
+        <div class="stat"><b>100K+</b><span>launcher downloads</span></div>
+        <div class="stat"><b>{featured.length + more.length}</b><span>projects</span></div>
+      </div>
+    </header>
+
+    <section id="work">
+      <div class="sec-head"><span class="g">$</span> ls ./selected-work</div>
+      <div class="work">
+        {featured.map((p, i) => <ProjectCard project={p} index={i} />)}
+      </div>
+    </section>
+
+    <section>
+      <div class="sec-head"><span class="g">$</span> ls ./more</div>
+      <div class="more">
+        {
+          more.map((p) => (
+            <a href={`/work/${p.slug}`}>
+              <span>{p.title}</span>
+              <span>{p.kind}</span>
+            </a>
+          ))
+        }
+      </div>
+    </section>
+
+    <section>
+      <div class="sec-head"><span class="g">$</span> cat ./skills</div>
+      <div class="skills">
+        {
+          skills.map((s) => (
+            <div class="row">
+              <div class="label">{s.h}</div>
+              <div class="items">{s.items.join(' · ')}</div>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="sec-head"><span class="a">//</span> get in touch</div>
+      <h2 class="cta-title">Building something? Let's talk.</h2>
+      <ContactList />
+    </section>
+  </div>
+</Layout>

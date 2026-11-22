@@ -1,0 +1,82 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { projects } from '../../data/projects';
+import type { Project } from '../../data/projects';
+
+export function getStaticPaths() {
+  return projects.map((p) => ({ params: { slug: p.slug }, props: { project: p } }));
+}
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+const index = projects.findIndex((p) => p.slug === project.slug);
+const next = projects[(index + 1) % projects.length];
+---
+
+<Layout title={project.title} description={project.tagline}>
+  <div class="wrap">
+    <div class="back">
+      <a href="/#work"><span class="g">$</span> cd ..</a>
+    </div>
+
+    <header class="phead">
+      <div class="meta">
+        <span class="a">// {project.context.toLowerCase()}</span>
+        <span>{project.kind}</span>
+      </div>
+      <h1 transition:name={`project-title-${project.slug}`}>{project.title}</h1>
+      <p class="sub">{project.tagline}</p>
+      <ul class="chips" aria-label="Tech stack">
+        {project.stack.map((s) => <li class="chip">{s}</li>)}
+      </ul>
+    </header>
+
+    <div class="shot" transition:name={`project-visual-${project.slug}`}>
+      {
+        project.image ? (
+          <img src={project.image} alt={`${project.title} screenshot`} />
+        ) : (
+          <span class="placeholder" aria-hidden="true">{project.title}</span>
+        )
+      }
+    </div>
+
+    {
+      project.metrics && (
+        <div class="stats">
+          {project.metrics.map((m) => (
+            <div class="stat">
+              <b>{m.value}</b>
+              <span>{m.label}</span>
+            </div>
+          ))}
+        </div>
+      )
+    }
+
+    <section>
+      <div class="sec-head"><span class="a">//</span> overview</div>
+      <div class="body">
+        {project.summary.map((p) => <p>{p}</p>)}
+      </div>
+    </section>
+
+    <section>
+      <div class="sec-head"><span class="a">//</span> what i built</div>
+      <ul class="bullets">
+        {project.highlights.map((h) => <li>{h}</li>)}
+      </ul>
+    </section>
+
+    <a class="next" href={`/work/${next.slug}`}>
+      <div>
+        <div class="label">next project</div>
+        <div class="ttl">{next.title}</div>
+      </div>
+      <span class="arrow" aria-hidden="true">→</span>
+    </a>
+  </div>
+</Layout>

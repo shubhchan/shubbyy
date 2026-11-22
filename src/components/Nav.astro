@@ -1,0 +1,43 @@
+---
+import { site } from '../data/site';
+import ThemeToggle from './ThemeToggle.astro';
+
+const pathname = Astro.url.pathname.replace(/\/+$/, '') || '/';
+function isActive(href: string): boolean {
+  if (href === '/#work') return pathname === '/' || pathname.startsWith('/work');
+  return pathname === href;
+}
+---
+
+<nav class="nav" transition:persist="site-nav" aria-label="Primary">
+  <a class="brand" href="/"><span class="g tilde">~/</span>shubham<span class="m">@</span>chandok</a>
+  <div class="navlinks">
+    {
+      site.nav.map((item, i) => (
+        <Fragment>
+          {i > 0 && <span class="sep" aria-hidden="true">·</span>}
+          <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>
+            {item.label}
+          </a>
+        </Fragment>
+      ))
+    }
+    <ThemeToggle />
+  </div>
+</nav>
+
+<script>
+  // The nav persists across navigations, so update the active link manually.
+  if (!window.__navBound) {
+    window.__navBound = true;
+    document.addEventListener('astro:page-load', () => {
+      const path = window.location.pathname.replace(/\/+$/, '') || '/';
+      document.querySelectorAll('.navlinks a').forEach((a) => {
+        const href = a.getAttribute('href') || '';
+        const active = href === '/#work' ? path === '/' || path.startsWith('/work') : path === href;
+        if (active) a.setAttribute('aria-current', 'page');
+        else a.removeAttribute('aria-current');
+      });
+    });
+  }
+</script>
