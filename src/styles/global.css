@@ -391,6 +391,9 @@ section {
 .more a:hover span:first-child {
   color: var(--accent-text);
 }
+.work + .more {
+  margin-top: var(--s-4);
+}
 
 /* Skills — one line per area */
 .skills {

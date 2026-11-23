@@ -2,7 +2,14 @@
 import Layout from '../layouts/Layout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import ContactList from '../components/ContactList.astro';
-import { featured, more } from '../data/projects';
+import {
+  professional,
+  personal,
+  featuredProfessional,
+  moreProfessional,
+  featuredPersonal,
+  morePersonal
+} from '../data/projects';
 import { skills } from '../data/about';
 import { site, url } from '../data/site';
 ---
@@ -22,31 +29,48 @@ import { site, url } from '../data/site';
         </p>
       </div>
       <div class="stats">
-        <div class="stat"><b>5L+</b><span>customers billed</span></div>
+        <div class="stat"><b>{professional.length}</b><span>professional projects</span></div>
         <div class="stat"><b>100K+</b><span>launcher downloads</span></div>
-        <div class="stat"><b>{featured.length + more.length}</b><span>projects</span></div>
+        <div class="stat"><b>{personal.length}</b><span>personal projects</span></div>
       </div>
     </header>
 
     <section id="work">
-      <div class="sec-head"><span class="g">$</span> ls ./selected-work</div>
+      <div class="sec-head"><span class="g">$</span> ls ./work</div>
       <div class="work">
-        {featured.map((p, i) => <ProjectCard project={p} index={i} />)}
+        {featuredProfessional.map((p, i) => <ProjectCard project={p} index={i} />)}
       </div>
+      {
+        moreProfessional.length > 0 && (
+          <div class="more">
+            {moreProfessional.map((p) => (
+              <a href={url(`/work/${p.slug}`)}>
+                <span>{p.title}</span>
+                <span>{p.kind}</span>
+              </a>
+            ))}
+          </div>
+        )
+      }
     </section>
 
-    <section>
-      <div class="sec-head"><span class="g">$</span> ls ./more</div>
-      <div class="more">
-        {
-          more.map((p) => (
-            <a href={url(`/work/${p.slug}`)}>
-              <span>{p.title}</span>
-              <span>{p.kind}</span>
-            </a>
-          ))
-        }
+    <section id="personal">
+      <div class="sec-head"><span class="g">$</span> ls ./personal</div>
+      <div class="work">
+        {featuredPersonal.map((p, i) => <ProjectCard project={p} index={i} />)}
       </div>
+      {
+        morePersonal.length > 0 && (
+          <div class="more">
+            {morePersonal.map((p) => (
+              <a href={url(`/work/${p.slug}`)}>
+                <span>{p.title}</span>
+                <span>{p.kind}</span>
+              </a>
+            ))}
+          </div>
+        )
+      }
     </section>
 
     <section>

@@ -94,11 +94,10 @@ export const projects: Project[] = [
     kind: 'Web + Mobile',
     context: ALMIGHTY,
     featured: true,
-    tagline: 'Billing and collection system for more than 5 lakh customers.',
-    metrics: [{ value: '5L+', label: 'customers managed' }],
+    tagline: 'Billing and collection system with a Flutter app for field agents.',
     summary: [
-      'A large-scale billing and collection system with a Flutter app for field agents.',
-      'The web system runs monthly billing and reporting. Agents use the app to bill and collect door to door, then sync to the server.'
+      'A billing and collection system with a Flutter app for field agents.',
+      'The web system runs billing and reporting. Agents use the app to collect door to door, then sync to the server.'
     ],
     highlights: [
       'Monthly billing and multi-mode payments',
@@ -274,8 +273,13 @@ export const projects: Project[] = [
   }
 ];
 
-export const featured = projects.filter((p) => p.featured);
-export const more = projects.filter((p) => !p.featured);
+export const professional = projects.filter((p) => p.context !== PERSONAL);
+export const personal = projects.filter((p) => p.context === PERSONAL);
+
+export const featuredProfessional = professional.filter((p) => p.featured);
+export const moreProfessional = professional.filter((p) => !p.featured);
+export const featuredPersonal = personal.filter((p) => p.featured);
+export const morePersonal = personal.filter((p) => !p.featured);
 
 export function getProject(slug: string): Project | undefined {
   return projects.find((p) => p.slug === slug);
