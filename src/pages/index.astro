@@ -4,7 +4,7 @@ import ProjectCard from '../components/ProjectCard.astro';
 import ContactList from '../components/ContactList.astro';
 import { featured, more } from '../data/projects';
 import { skills } from '../data/about';
-import { site } from '../data/site';
+import { site, url } from '../data/site';
 ---
 
 <Layout>
@@ -40,7 +40,7 @@ import { site } from '../data/site';
       <div class="more">
         {
           more.map((p) => (
-            <a href={`/work/${p.slug}`}>
+            <a href={url(`/work/${p.slug}`)}>
               <span>{p.title}</span>
               <span>{p.kind}</span>
             </a>

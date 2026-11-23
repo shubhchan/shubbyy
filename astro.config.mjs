@@ -3,8 +3,8 @@ import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-  // TODO: replace with your production URL before deploying.
-  site: 'https://shubhamchandok.dev',
+  site: 'https://shubhchan.github.io',
+  base: '/shubbyy',
   compressHTML: true,
   build: {
     inlineStylesheets: 'auto'

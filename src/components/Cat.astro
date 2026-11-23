@@ -1,7 +1,7 @@
 ---
 ---
 
-<div class="cat" data-cat aria-hidden="true"></div>
+<div class="cat" data-cat data-base={import.meta.env.BASE_URL} aria-hidden="true"></div>
 
 <script>
   import type { AnimationItem, LottiePlayer } from 'lottie-web';
@@ -32,6 +32,7 @@
   let lottie: LottiePlayer | null = null;
   let anim: AnimationItem | null = null;
   let animPath = '';
+  let base = '/';
   let mounted = false;
   let cat: HTMLElement | null = null;
   let eyes: Eye[] = [];
@@ -45,7 +46,8 @@
   }
 
   function themePath(): string {
-    return document.documentElement.getAttribute('data-theme') === 'light' ? '/cat-light.json' : '/cat-dark.json';
+    const file = document.documentElement.getAttribute('data-theme') === 'light' ? 'cat-light.json' : 'cat-dark.json';
+    return `${base}${file}`;
   }
 
   function clampLength(v: Vec, max: number): Vec {
@@ -137,6 +139,8 @@
     if (mounted) return;
     mounted = true;
     cat = el;
+    base = el.dataset.base || '/';
+    if (!base.endsWith('/')) base += '/';
     if (reduced()) {
       el.innerHTML = STATIC;
       return;
@@ -145,7 +149,8 @@
     if (cat !== el) return; // navigated away while loading
     load(el, false);
     // Warm the cache so a theme switch swaps cats without a gap.
-    fetch(animPath === '/cat-light.json' ? '/cat-dark.json' : '/cat-light.json').catch(() => {});
+    const other = animPath.endsWith('cat-light.json') ? 'cat-dark.json' : 'cat-light.json';
+    fetch(`${base}${other}`).catch(() => {});
   }
 
   function destroy() {

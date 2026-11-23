@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import { experience, education, skills, spoken } from '../data/about';
 import { getProject } from '../data/projects';
-import { site } from '../data/site';
+import { site, url } from '../data/site';
 ---
 
 <Layout title="About" description="About Shubham Chandok — experience, education, and skills.">
@@ -37,7 +37,7 @@ import { site } from '../data/site';
                 <div class="links">
                   {e.projects.map((slug) => {
                     const p = getProject(slug);
-                    return p ? <a href={`/work/${p.slug}`}>{p.title}</a> : null;
+                    return p ? <a href={url(`/work/${p.slug}`)}>{p.title}</a> : null;
                   })}
                 </div>
                 {e.note && <p class="note">{e.note}</p>}

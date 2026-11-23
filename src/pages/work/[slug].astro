@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import { projects } from '../../data/projects';
 import type { Project } from '../../data/projects';
+import { url } from '../../data/site';
 
 export function getStaticPaths() {
   return projects.map((p) => ({ params: { slug: p.slug }, props: { project: p } }));
@@ -19,7 +20,7 @@ const next = projects[(index + 1) % projects.length];
 <Layout title={project.title} description={project.tagline}>
   <div class="wrap">
     <div class="back">
-      <a href="/#work"><span class="g">$</span> cd ..</a>
+      <a href={url('/#work')}><span class="g">$</span> cd ..</a>
     </div>
 
     <header class="phead">
@@ -71,7 +72,7 @@ const next = projects[(index + 1) % projects.length];
       </ul>
     </section>
 
-    <a class="next" href={`/work/${next.slug}`}>
+    <a class="next" href={url(`/work/${next.slug}`)}>
       <div>
         <div class="label">next project</div>
         <div class="ttl">{next.title}</div>

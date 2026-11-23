@@ -5,6 +5,7 @@ import '../styles/global.css';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import Cat from '../components/Cat.astro';
+import { url } from '../data/site';
 
 interface Props {
   title?: string;
@@ -27,7 +28,7 @@ const desc =
     <meta name="generator" content={Astro.generator} />
     <meta name="theme-color" content="#f8f3ec" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#1e1e2e" media="(prefers-color-scheme: dark)" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href={url('/favicon.svg')} />
     <title>{pageTitle}</title>
     <script is:inline>
       (function () {
