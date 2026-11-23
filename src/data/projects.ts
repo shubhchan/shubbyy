@@ -276,11 +276,6 @@ export const projects: Project[] = [
 export const professional = projects.filter((p) => p.context !== PERSONAL);
 export const personal = projects.filter((p) => p.context === PERSONAL);
 
-export const featuredProfessional = professional.filter((p) => p.featured);
-export const moreProfessional = professional.filter((p) => !p.featured);
-export const featuredPersonal = personal.filter((p) => p.featured);
-export const morePersonal = personal.filter((p) => !p.featured);
-
 export function getProject(slug: string): Project | undefined {
   return projects.find((p) => p.slug === slug);
 }

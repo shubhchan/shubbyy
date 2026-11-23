@@ -1,0 +1,70 @@
+<div class="loader" data-loader role="status" aria-label="Loading">
+  <div class="loader-box" data-loader-anim aria-hidden="true"></div>
+</div>
+
+<script>
+  import type { AnimationItem, LottiePlayer } from 'lottie-web';
+  import player from 'lottie-web/build/player/lottie_light';
+  import animationData from '../data/cat-paw-loader.json';
+
+  const lottie: LottiePlayer = player;
+  const MIN_VISIBLE = 800;
+  const MAX_VISIBLE = 3000;
+
+  let anim: AnimationItem | null = null;
+  let overlay: HTMLElement | null = null;
+  let mountedFor: HTMLElement | null = null;
+  let startedAt = 0;
+  let hiding = false;
+
+  function hide() {
+    if (hiding || !overlay) return;
+    hiding = true;
+    const wait = Math.max(0, MIN_VISIBLE - (performance.now() - startedAt));
+    window.setTimeout(() => {
+      overlay?.classList.add('is-hidden');
+      window.setTimeout(() => {
+        document.documentElement.dataset.loaderSeen = '1';
+        anim?.destroy();
+        anim = null;
+        overlay?.remove();
+        overlay = null;
+      }, 320);
+    }, wait);
+  }
+
+  function mount() {
+    if (document.documentElement.dataset.loaderSeen === '1') {
+      document.querySelector('[data-loader]')?.remove();
+      return;
+    }
+    const el = document.querySelector<HTMLElement>('[data-loader]');
+    const container = el?.querySelector<HTMLElement>('[data-loader-anim]');
+    if (!el || !container || el === mountedFor) return;
+    mountedFor = el;
+    overlay = el;
+    startedAt = performance.now();
+    hiding = false;
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    anim?.destroy();
+    anim = lottie.loadAnimation({
+      container,
+      renderer: 'svg',
+      loop: !reduced,
+      autoplay: !reduced,
+      // lottie-web mutates its data, so give each run a fresh copy.
+      animationData: JSON.parse(JSON.stringify(animationData))
+    });
+    if (reduced) {
+      anim.addEventListener('DOMLoaded', () => anim?.goToAndStop(15, true));
+    }
+
+    if (document.readyState === 'complete') hide();
+    else window.addEventListener('load', hide, { once: true });
+    window.setTimeout(hide, MAX_VISIBLE);
+  }
+
+  document.addEventListener('astro:page-load', mount);
+  mount();
+</script>

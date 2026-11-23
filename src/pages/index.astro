@@ -2,16 +2,9 @@
 import Layout from '../layouts/Layout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import ContactList from '../components/ContactList.astro';
-import {
-  professional,
-  personal,
-  featuredProfessional,
-  moreProfessional,
-  featuredPersonal,
-  morePersonal
-} from '../data/projects';
+import { professional, personal } from '../data/projects';
 import { skills } from '../data/about';
-import { site, url } from '../data/site';
+import { site } from '../data/site';
 ---
 
 <Layout>
@@ -38,39 +31,15 @@ import { site, url } from '../data/site';
     <section id="work">
       <div class="sec-head"><span class="g">$</span> ls ./work</div>
       <div class="work">
-        {featuredProfessional.map((p, i) => <ProjectCard project={p} index={i} />)}
+        {professional.map((p, i) => <ProjectCard project={p} index={i} />)}
       </div>
-      {
-        moreProfessional.length > 0 && (
-          <div class="more">
-            {moreProfessional.map((p) => (
-              <a href={url(`/work/${p.slug}`)}>
-                <span>{p.title}</span>
-                <span>{p.kind}</span>
-              </a>
-            ))}
-          </div>
-        )
-      }
     </section>
 
     <section id="personal">
       <div class="sec-head"><span class="g">$</span> ls ./personal</div>
       <div class="work">
-        {featuredPersonal.map((p, i) => <ProjectCard project={p} index={i} />)}
+        {personal.map((p, i) => <ProjectCard project={p} index={i} />)}
       </div>
-      {
-        morePersonal.length > 0 && (
-          <div class="more">
-            {morePersonal.map((p) => (
-              <a href={url(`/work/${p.slug}`)}>
-                <span>{p.title}</span>
-                <span>{p.kind}</span>
-              </a>
-            ))}
-          </div>
-        )
-      }
     </section>
 
     <section>

@@ -5,6 +5,7 @@ import '../styles/global.css';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import Cat from '../components/Cat.astro';
+import Loader from '../components/Loader.astro';
 import { url } from '../data/site';
 
 interface Props {
@@ -45,13 +46,15 @@ const desc =
         document.documentElement.setAttribute('data-theme', theme);
         document.documentElement.style.colorScheme = theme;
 
-        // Client-side navigation replaces <html> attributes; carry the theme over.
+        // Client-side navigation replaces <html> attributes; carry state over.
         if (!window.__themeSwapBound) {
           window.__themeSwapBound = true;
           document.addEventListener('astro:before-swap', function (e) {
             var current = document.documentElement.getAttribute('data-theme') || theme;
             e.newDocument.documentElement.setAttribute('data-theme', current);
             e.newDocument.documentElement.style.colorScheme = current;
+            var seen = document.documentElement.getAttribute('data-loader-seen');
+            if (seen) e.newDocument.documentElement.setAttribute('data-loader-seen', seen);
           });
         }
       })();
@@ -59,6 +62,7 @@ const desc =
     <ClientRouter />
   </head>
   <body>
+    <Loader />
     <a class="skip" href="#main">Skip to content</a>
     <div class="wrap">
       <Nav />
